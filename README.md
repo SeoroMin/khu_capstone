@@ -27,7 +27,7 @@
 5) Top k개 리뷰 추출
 
 # 실험결과
-binary text classification
+binary text classification<br>
 acc 0.82 (max_len=64, batch_size=64, warmup_ratio=0.1, epoch=5, learning rate=5e-5)
 
 # 향후계획
