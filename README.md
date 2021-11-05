@@ -8,9 +8,27 @@
 5) Bert embedding vector를 clustering하여 군집을 형성한 후 top k개 만큼 추출해 소비자한테 보여주는 모델을 만들고자 한다.
 
 # 분석과정
+
+전체적인 분석 과정
 ![model_img](https://user-images.githubusercontent.com/57586314/140477467-3afdcacd-bacc-4b04-a60d-a33825b59eb2.png)
 
+데이터 : 올리브영 스킨/토너 카테고리 리뷰 데이터
+데이터 전처리 : 
+1) 광고성, 안내성 문구 삭제
+2) 불필요한 문구 전처리
+3) 1~5점 척도 레이블 : 4,5점 -> 유용, 1,2점 -> 유용x
+모델 : SKT T brain KoBERT모델 finetuning
 
+과정
+1) KoBERT 모델을 활용해 binary classification 수행
+2) logits과 embedding vector를 저장
+3) embedding vector값을 clustering
+4) 군집 내 logits순으로 내림차순 정렬
+5) Top k개 리뷰 추출
+
+# 실험결과
+binary text classification
+acc 0.82 (max_len=64, batch_size=64, warmup_ratio=0.1, epoch=5, learning rate=5e-5)
 
 # 향후계획
 1) bert embedding vector -> sentence bert embedding vector
