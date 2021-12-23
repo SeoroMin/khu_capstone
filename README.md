@@ -2,7 +2,7 @@
 
 # 연구배경
 
-![background](./images/motivation.png){: width="100" height="100"}
+![background](./images/motivation.png)
 
 - 리뷰에 대한 인식 : 소비자는 상품 구매 전 유용한 리뷰를 보고 구매하려는 경향이 크다. 이커머스 업종에서 리뷰 분석은 큰 화두
 - 현 문제점 : 대부분의 이커머스 사이트는 유용한 리뷰를 필터링해주는 기능이 없고, 필터링해주는 기능이 있어도 상단에 위치한(유용한 리뷰)리뷰만 계속 유용함을 받는 비대칭 현상이 존재한다. 이에 따라 비대칭 현상으로 최근 리뷰들은 무시되는 문제점이 있다.
@@ -13,7 +13,7 @@
 
 ### 데이터수집
 
-![data_example](./images/data_example.png){: width="100" height="100"}
+![data_example](./images/data_example.png)
 
 데이터 : 올리브영 스킨/토너 카테고리 리뷰 데이터
 - 리뷰에 가장 민감한 상품군인 화장품 도메인 선택
@@ -58,9 +58,11 @@
 - Random Swap(RS) : 문장 내 임의 두 단어 위치 변경
 - Random Deletion(RD) : 임의 단어 삭제
 
+![text_augmentation](./images/text_augmentation.png)
+
 ## 모델링 
 
-![model_bert](./images/bert.png){: width="100" height="100"}
+![model_bert](./images/bert.png)
 
 모델1 BERT(multilingual)
 선정이유)
@@ -68,7 +70,7 @@
 - Pre-trained 모델로 Wikipedia, bookCorpus단어를 pre-trained시켜 성능을 개선하여 task에 맞게 fine-tuning하여 수월하다.
 - 기존 attention을 사용해 성능을 개선한 transformer의 encoder를 적층시켜 학습을 진행한 특징이 있다.
 
-![model_bert](./images/kobert.png){: width="100" height="100"}
+![model_kobert](./images/kobert.png)
 
 모델2 KoBERT
 선정이유)
@@ -87,12 +89,16 @@ Hyper parameter tuning
 
 # 실험결과
 
+![conclusion](./images/conclusion.png)
+
 - BERT(multi-lingual)이 KoBERT보다 성능이 높았다. 화장품 도메인의 데이터 특성이 기존 BERT에 더 적합한 것을 해석했다.
 - augmentation을 적용하지 않았을 때 성능이 가장 높았다. 단어의 어순과 정보가 중요한 화장품 리뷰의 특성때문인 것으로 분석했다.
 - Rd, ri, rs에서 가장 성능이 저하 되었다. 유의어로 교체하는 sr에 비해 단어의 정보를 아예 바꿔버리기 때문에 성능이 저하됐을 것으로 분석했다.
 
-binary text classification<br>
-acc 0.82 (max_len=64, batch_size=64, warmup_ratio=0.1, epoch=5, learning rate=5e-5)
+결과 예시)
+
+![scoring](./images/scoring.png)
+![conclusion_review_example](./images/conclusion_review_example.png)
 
 # 결과 및 제언
 
