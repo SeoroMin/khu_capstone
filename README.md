@@ -14,7 +14,7 @@
 
 ### 데이터수집
 
-데이터 : 올리브영 스킨/토너 카테고리 리뷰 데이터
+#### 데이터 : 올리브영 스킨/토너 카테고리 리뷰 데이터
 - 리뷰에 가장 민감한 상품군인 화장품 도메인 선택
 - 화장품 중 가장 보편적인 스킨 토너 데이터 선택
 - 직접 크롤링 후, 약 2000개 데이터 확보
@@ -22,12 +22,12 @@
 ![data_example](./images/data_example.png)
 
 
-데이터 전처리 : 
+#### 데이터 전처리 : 
 - null값 데이터 제거
 - 리뷰에 판매자 및 관리자가 작성한 문구 삭제
 - html 태그와 필요없는 공백 삭제
 
-데이터 labeling : 
+#### 데이터 labeling : 
 - 피부타입에 따른 피드백 : ex - 복합성, 지성, 건성, 예민함, 홍조, 블랙헤드, 여드름에 좋다고 해서 샀는데~, 기타 자신의 피부 설명
 - 타 제품과의 비교 : A제품에 비해 끈적임이 덜 해요, B제품 쓰다가 돌아왔는데
 - 화장품 정보 : 끈적여요, 크리미해요, 물같아요, 향, 제형 (용량으 제외)
@@ -48,13 +48,13 @@
 - labeling은 총 5명의 평균값을 반올림하여 진행하였다.
 
 ### 데이터 추가(Text augmentation)
-선정이유)
+#### 선정이유
 - 한정된 시간 내에 많은 labeling을 수행할 수 없어 label 개수가 현저히 적었다.
 - 데이터가 적을 때, 많은 데이터를 사용한 것과 비슷한 정확도를 만들 수 있는 기법이다.
 - image data augmentation만 보편적으로 알려져 있는데, text augmentation의 효과는 어떤지 실험해보고자 했다.
 참고논문  : Easy data augmentation techniques for boosting performance(2019 EMNLP)
 
-4가지 데이터 추가 기법
+#### 4가지 데이터 추가 기법
 - Synonym Replacement(SR) : 특정 단어를 유의어로 교체
 - Random Insertion(RI) : 임의 단어 삽입
 - Random Swap(RS) : 문장 내 임의 두 단어 위치 변경
@@ -64,7 +64,7 @@
 
 ## 모델링 
 
-모델1 BERT(multilingual)
+#### 모델1 BERT(multilingual)
 선정이유)
 - BERT는 기존 왼쪽에서 오른쪽으로 문맥을 파악하는 모델들의 한계점을 Mask토근과, next sentence prediction을 사용해 양방향 학습으로 개선한 특징이 있다.
 - Pre-trained 모델로 Wikipedia, bookCorpus단어를 pre-trained시켜 성능을 개선하여 task에 맞게 fine-tuning하여 수월하다.
@@ -72,7 +72,7 @@
 
 ![model_bert](./images/bert.png)
 
-모델2 KoBERT
+#### 모델2 KoBERT
 선정이유)
 - KoBERT는 기존 다국어 학습 모델인 BERT에서 한국어 데이터만 학습을 진행한 모델이다.
 - 기존 BERT의 한국어 성능 한계를 개선하여 진행하는 프로젝트도 한국어 위주이기 때문에 KoBERT를 사용했다.
@@ -97,7 +97,7 @@ Hyper parameter tuning
 
 ![conclusion](./images/conclusion.png)
 
-결과 예시)
+#### 결과 예시
 
 ![scoring](./images/scoring.png)
 ![conclusion_review_example](./images/conclusion_review_example.png)
