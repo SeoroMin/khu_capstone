@@ -2,23 +2,25 @@
 
 # 연구배경
 
-![background](./images/motivation.png)
-
 - 리뷰에 대한 인식 : 소비자는 상품 구매 전 유용한 리뷰를 보고 구매하려는 경향이 크다. 이커머스 업종에서 리뷰 분석은 큰 화두
 - 현 문제점 : 대부분의 이커머스 사이트는 유용한 리뷰를 필터링해주는 기능이 없고, 필터링해주는 기능이 있어도 상단에 위치한(유용한 리뷰)리뷰만 계속 유용함을 받는 비대칭 현상이 존재한다. 이에 따라 비대칭 현상으로 최근 리뷰들은 무시되는 문제점이 있다.
 - 이에 따라 유용한 리뷰를 분류하는 모델을 만들어, 소비자에게 상품 구매 전 도움을 주고자 한다.
+
+![background](./images/motivation.png)
+
 
 
 # 분석과정
 
 ### 데이터수집
 
-![data_example](./images/data_example.png)
-
 데이터 : 올리브영 스킨/토너 카테고리 리뷰 데이터
 - 리뷰에 가장 민감한 상품군인 화장품 도메인 선택
 - 화장품 중 가장 보편적인 스킨 토너 데이터 선택
 - 직접 크롤링 후, 약 2000개 데이터 확보
+
+![data_example](./images/data_example.png)
+
 
 데이터 전처리 : 
 - null값 데이터 제거
@@ -62,20 +64,20 @@
 
 ## 모델링 
 
-![model_bert](./images/bert.png)
-
 모델1 BERT(multilingual)
 선정이유)
 - BERT는 기존 왼쪽에서 오른쪽으로 문맥을 파악하는 모델들의 한계점을 Mask토근과, next sentence prediction을 사용해 양방향 학습으로 개선한 특징이 있다.
 - Pre-trained 모델로 Wikipedia, bookCorpus단어를 pre-trained시켜 성능을 개선하여 task에 맞게 fine-tuning하여 수월하다.
 - 기존 attention을 사용해 성능을 개선한 transformer의 encoder를 적층시켜 학습을 진행한 특징이 있다.
 
-![model_kobert](./images/kobert.png)
+![model_bert](./images/bert.png)
 
 모델2 KoBERT
 선정이유)
 - KoBERT는 기존 다국어 학습 모델인 BERT에서 한국어 데이터만 학습을 진행한 모델이다.
 - 기존 BERT의 한국어 성능 한계를 개선하여 진행하는 프로젝트도 한국어 위주이기 때문에 KoBERT를 사용했다.
+
+![model_kobert](./images/kobert.png)
 
 ### 최적화
 - AdamW : Adam을 개선한 옵티마이저로 bert model에 주로 사용하는 옵티마이저이다. 기존 L2 regularization 문제를 보완하기 위해 weight decay를 위한 텀을 따로 분리하여, 일반화 성능을 개선한 특징이 있다.
@@ -89,11 +91,11 @@ Hyper parameter tuning
 
 # 실험결과
 
-![conclusion](./images/conclusion.png)
-
 - BERT(multi-lingual)이 KoBERT보다 성능이 높았다. 화장품 도메인의 데이터 특성이 기존 BERT에 더 적합한 것을 해석했다.
 - augmentation을 적용하지 않았을 때 성능이 가장 높았다. 단어의 어순과 정보가 중요한 화장품 리뷰의 특성때문인 것으로 분석했다.
 - Rd, ri, rs에서 가장 성능이 저하 되었다. 유의어로 교체하는 sr에 비해 단어의 정보를 아예 바꿔버리기 때문에 성능이 저하됐을 것으로 분석했다.
+
+![conclusion](./images/conclusion.png)
 
 결과 예시)
 
@@ -102,13 +104,13 @@ Hyper parameter tuning
 
 # 결과 및 제언
 
-결과 및 기대효과)
+#### 결과 및 기대효과
 - 데이터 수집부터, 전처리, labeling, 모델링, 최적화 등 전체 프로세스를 다 구현하는 경험
 - 유용함이라는 지표가 매우 주관적이라 labeling 기준을 최대한 객관적으로 세움.
 - softmax 형태로 값을 출력해, 어느정도 유용한지 나타내고자 함.
 - 앞에서 구한 softmax score를 통해 필터링 기능을 사용한다면, 상품 구매 전 소비자에게 도움을 제공
 
-제언 및 아쉬웠던 점)
+#### 제언 및 아쉬웠던 점
 - 제한된 시간 내에 수작업 labeling 작업 때문에 많은 데이터를 확보하지 못함
 - 추가실험에서 추후 군집 내 기준을 centroid값으로 추출해보고자 함
 - Tf-idf기반이 아닌 sentence-bert나 doc2vec을 적용시켜 성능을 개선하고자 함
