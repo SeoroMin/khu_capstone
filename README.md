@@ -1,14 +1,13 @@
 # khu_capstone
 
 # 연구배경
+
 ![background](./images/motivation.png)
+
 - 리뷰에 대한 인식 : 소비자는 상품 구매 전 유용한 리뷰를 보고 구매하려는 경향이 크다. 이커머스 업종에서 리뷰 분석은 큰 화두
 - 현 문제점 : 대부분의 이커머스 사이트는 유용한 리뷰를 필터링해주는 기능이 없고, 필터링해주는 기능이 있어도 상단에 위치한(유용한 리뷰)리뷰만 계속 유용함을 받는 비대칭 현상이 존재한다. 이에 따라 비대칭 현상으로 최근 리뷰들은 무시되는 문제점이 있다.
 - 이에 따라 유용한 리뷰를 분류하는 모델을 만들어, 소비자에게 상품 구매 전 도움을 주고자 한다.
- 
-3) 그러므로 KoBERT를 활용해 text classification을 수행하여 리뷰유용성을 파악하는 모델을 만들고자 한다. 
-4) 또한 소비자 입장에서 비슷한 정보를 담고 있는 리뷰들을 다 보지 않고, 대표적인 정보를 가지고 있는 리뷰들만 보고 싶어하는 경향이 있다. 
-5) Bert embedding vector를 clustering하여 군집을 형성한 후 top k개 만큼 추출해 소비자한테 보여주는 모델을 만들고자 한다.
+
 
 # 분석과정
 
@@ -16,6 +15,9 @@
 ![model_img](https://user-images.githubusercontent.com/57586314/140477467-3afdcacd-bacc-4b04-a60d-a33825b59eb2.png)
 
 ### 데이터수집
+
+![data_example](./images/data_example.png)
+
 데이터 : 올리브영 스킨/토너 카테고리 리뷰 데이터
 - 리뷰에 가장 민감한 상품군인 화장품 도메인 선택
 - 화장품 중 가장 보편적인 스킨 토너 데이터 선택
@@ -61,20 +63,20 @@
 
 ## 모델링 
 
+![model_bert](./images/bert.png)
+
 모델1 BERT(multilingual)
 선정이유)
 - BERT는 기존 왼쪽에서 오른쪽으로 문맥을 파악하는 모델들의 한계점을 Mask토근과, next sentence prediction을 사용해 양방향 학습으로 개선한 특징이 있다.
 - Pre-trained 모델로 Wikipedia, bookCorpus단어를 pre-trained시켜 성능을 개선하여 task에 맞게 fine-tuning하여 수월하다.
 - 기존 attention을 사용해 성능을 개선한 transformer의 encoder를 적층시켜 학습을 진행한 특징이 있다.
 
-SKT T brain KoBERT모델 finetuning
+![model_bert](./images/kobert.png)
 
-과정
-1) KoBERT 모델을 활용해 binary classification 수행
-2) logits과 embedding vector를 저장
-3) embedding vector값을 clustering
-4) 군집 내 logits순으로 내림차순 정렬
-5) Top k개 리뷰 추출
+모델2 KoBERT
+선정이유)
+- KoBERT는 기존 다국어 학습 모델인 BERT에서 한국어 데이터만 학습을 진행한 모델이다.
+- 기존 BERT의 한국어 성능 한계를 개선하여 진행하는 프로젝트도 한국어 위주이기 때문에 KoBERT를 사용했다.
 
 ### 최적화
 - AdamW : Adam을 개선한 옵티마이저로 bert model에 주로 사용하는 옵티마이저이다. 기존 L2 regularization 문제를 보완하기 위해 weight decay를 위한 텀을 따로 분리하여, 일반화 성능을 개선한 특징이 있다.
