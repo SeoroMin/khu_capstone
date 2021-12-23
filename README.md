@@ -60,6 +60,10 @@
 모델링 : 
 
 모델1 BERT(multilingual)
+선정이유)
+- BERT는 기존 왼쪽에서 오른쪽으로 문맥을 파악하는 모델들의 한계점을 Mask토근과, next sentence prediction을 사용해 양방향 학습으로 개선한 특징이 있다.
+- Pre-trained 모델로 Wikipedia, bookCorpus단어를 pre-trained시켜 성능을 개선하여 task에 맞게 fine-tuning하여 수월하다.
+- 기존 attention을 사용해 성능을 개선한 transformer의 encoder를 적층시켜 학습을 진행한 특징이 있다.
 
 SKT T brain KoBERT모델 finetuning
 
@@ -70,10 +74,23 @@ SKT T brain KoBERT모델 finetuning
 4) 군집 내 logits순으로 내림차순 정렬
 5) Top k개 리뷰 추출
 
+최적화 : 
+- AdamW : Adam을 개선한 옵티마이저로 bert model에 주로 사용하는 옵티마이저이다. 기존 L2 regularization 문제를 보완하기 위해 weight decay를 위한 텀을 따로 분리하여, 일반화 성능을 개선한 특징이 있다.
+- Cosine scheduler with warmup : Pretrained model의 특성상 처음 warmup을 시켜주면 더 빠르게 학습되는 효과가 있다.
+
+Hyper parameter tuning
+- max_len : 화장품 리뷰들의 길이 분포를 파악해 256로 설정
+- warmup_ratio : 0.1, 0.01, X 중 0.1이 가장 높은 성능을 나타냄
+- Dr_rate : 데이터가 적어 과적합이 심하게 나 0.5, 0.1, 0.01로 측정하였고 0.5가 가장 높은 성능을 나타냄
+- Weight_decay : 0.1, 0.01, X중 0.01이 가장 높은 성능을 나타냄
+
 # 실험결과
+
+- BERT(multi-lingual)이 KoBERT보다 성능이 높았다. 화장품 도메인의 데이터 특성이 기존 BERT에 더 적합한 것을 해석했다.
+- augmentation을 적용하지 않았을 때 성능이 가장 높았다. 단어의 어순과 정보가 중요한 화장품 리뷰의 특성때문인 것으로 분석했다.
+- Rd, ri, rs에서 가장 성능이 저하 되었다. 유의어로 교체하는 sr에 비해 단어의 정보를 아예 바꿔버리기 때문에 성능이 저하됐을 것으로 분석했다.
+
 binary text classification<br>
 acc 0.82 (max_len=64, batch_size=64, warmup_ratio=0.1, epoch=5, learning rate=5e-5)
 
-# 향후계획
-1) bert embedding vector -> sentence bert embedding vector
-2) clustering 방법 -> tf-idf를 통해 코사인 유사도를 구해 군집화
+# 결과 및 제언
