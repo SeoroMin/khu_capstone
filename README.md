@@ -2,7 +2,7 @@
 
 # 연구배경
 
-![background](./images/motivation.png)
+![background](./images/motivation.png){: width="100" height="100"}
 
 - 리뷰에 대한 인식 : 소비자는 상품 구매 전 유용한 리뷰를 보고 구매하려는 경향이 크다. 이커머스 업종에서 리뷰 분석은 큰 화두
 - 현 문제점 : 대부분의 이커머스 사이트는 유용한 리뷰를 필터링해주는 기능이 없고, 필터링해주는 기능이 있어도 상단에 위치한(유용한 리뷰)리뷰만 계속 유용함을 받는 비대칭 현상이 존재한다. 이에 따라 비대칭 현상으로 최근 리뷰들은 무시되는 문제점이 있다.
@@ -11,12 +11,9 @@
 
 # 분석과정
 
-전체적인 분석 과정
-![model_img](https://user-images.githubusercontent.com/57586314/140477467-3afdcacd-bacc-4b04-a60d-a33825b59eb2.png)
-
 ### 데이터수집
 
-![data_example](./images/data_example.png)
+![data_example](./images/data_example.png){: width="100" height="100"}
 
 데이터 : 올리브영 스킨/토너 카테고리 리뷰 데이터
 - 리뷰에 가장 민감한 상품군인 화장품 도메인 선택
@@ -63,7 +60,7 @@
 
 ## 모델링 
 
-![model_bert](./images/bert.png)
+![model_bert](./images/bert.png){: width="100" height="100"}
 
 모델1 BERT(multilingual)
 선정이유)
@@ -71,7 +68,7 @@
 - Pre-trained 모델로 Wikipedia, bookCorpus단어를 pre-trained시켜 성능을 개선하여 task에 맞게 fine-tuning하여 수월하다.
 - 기존 attention을 사용해 성능을 개선한 transformer의 encoder를 적층시켜 학습을 진행한 특징이 있다.
 
-![model_bert](./images/kobert.png)
+![model_bert](./images/kobert.png){: width="100" height="100"}
 
 모델2 KoBERT
 선정이유)
