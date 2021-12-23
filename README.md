@@ -14,6 +14,7 @@
 전체적인 분석 과정
 ![model_img](https://user-images.githubusercontent.com/57586314/140477467-3afdcacd-bacc-4b04-a60d-a33825b59eb2.png)
 
+### 데이터수집
 데이터 : 올리브영 스킨/토너 카테고리 리뷰 데이터
 - 리뷰에 가장 민감한 상품군인 화장품 도메인 선택
 - 화장품 중 가장 보편적인 스킨 토너 데이터 선택
@@ -44,7 +45,7 @@
 - 5점 척도로 점수를 매긴 뒤, 다시 2진 분류로 하면 좀 더 신뢰감 있고 정교한 labeling을 할 수 있어 위와 같이 진행함(추후 5점 척도 label로도 실험 진행 예정)
 - labeling은 총 5명의 평균값을 반올림하여 진행하였다.
 
-데이터 추가(Text augmentation) :
+### 데이터 추가(Text augmentation)
 선정이유)
 - 한정된 시간 내에 많은 labeling을 수행할 수 없어 label 개수가 현저히 적었다.
 - 데이터가 적을 때, 많은 데이터를 사용한 것과 비슷한 정확도를 만들 수 있는 기법이다.
@@ -57,7 +58,7 @@
 - Random Swap(RS) : 문장 내 임의 두 단어 위치 변경
 - Random Deletion(RD) : 임의 단어 삭제
 
-모델링 : 
+## 모델링 
 
 모델1 BERT(multilingual)
 선정이유)
@@ -74,7 +75,7 @@ SKT T brain KoBERT모델 finetuning
 4) 군집 내 logits순으로 내림차순 정렬
 5) Top k개 리뷰 추출
 
-최적화 : 
+### 최적화
 - AdamW : Adam을 개선한 옵티마이저로 bert model에 주로 사용하는 옵티마이저이다. 기존 L2 regularization 문제를 보완하기 위해 weight decay를 위한 텀을 따로 분리하여, 일반화 성능을 개선한 특징이 있다.
 - Cosine scheduler with warmup : Pretrained model의 특성상 처음 warmup을 시켜주면 더 빠르게 학습되는 효과가 있다.
 
